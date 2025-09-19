@@ -1,0 +1,51 @@
+<div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold mb-6 text-gray-800">Liste des Dépenses</h2>
+    <a routerLink="/expenses/new" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 transition ease-in-out duration-150">
+      Ajouter une Dépense
+    </a>
+  </div>
+
+  <div *ngIf="expenses.length > 0; else noExpenses" class="overflow-x-auto">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Description</th>
+          <th class="py-3 px-6 text-left">Montant</th>
+          <th class="py-3 px-6 text-left">Date</th>
+          <th class="py-3 px-6 text-left">Catégorie</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        <tr *ngFor="let expense of expenses" class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{ expense.description }}</td>
+          <td class="py-3 px-6 text-left">{{ expense.amount }} XAF</td>
+          <td class="py-3 px-6 text-left">{{ expense.date }}</td>
+          <td class="py-3 px-6 text-left">{{ getCategoryName(expense.category.id) }}</td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center space-x-2">
+              <a [routerLink]="['/expenses/edit', expense.id]" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.5A2.25 2.25 0 0115.75 20h-7.5A2.25 2.25 0 016 18.5V6.75A2.25 2.25 0 018.25 4.5h4.5" />
+                </svg>
+              </a>
+              <button (click)="deleteExpense(expense.id)" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.745 3.328a2.53 2.53 0 00-3.565 0L10.45 4.025a2.53 2.53 0 000 3.565l4.312 4.312a2.53 2.53 0 003.565 0L20.685 7.59a2.53 2.53 0 000-3.565L17.5 3.328a2.53 2.53 0 00-3.565 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18L12 6M17 18L17 6M7 18L7 6M2 18V6H22V18M10 21V19M14 21V19" />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noExpenses>
+    <p class="text-gray-500 text-center py-4">
+      Aucune dépense trouvée. Commencez par en ajouter une !
+    </p>
+  </ng-template>
+</div>

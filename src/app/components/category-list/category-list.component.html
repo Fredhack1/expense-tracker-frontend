@@ -1,0 +1,11 @@
+<h2 class="text-3xl font-bold mb-4">Liste des Catégories</h2>
+
+<ul *ngIf="categories.length > 0; else noCategories" class="space-y-2">
+    <li *ngFor="let category of categories" class="p-4 bg-gray-100 rounded-md shadow-sm">
+        <span class="font-semibold">{{ category.name }}</span>
+    </li>
+</ul>
+
+<ng-template #noCategories>
+    <p class="text-gray-500">Aucune catégorie trouvée.</p>
+</ng-template>

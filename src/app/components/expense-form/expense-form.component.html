@@ -1,0 +1,51 @@
+<div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-3xl font-bold mb-6 text-gray-800">
+        {{ isEditMode ? 'Modifier une Dépense' : 'Ajouter une Nouvelle Dépense' }}
+    </h2>
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <input type="text" formControlName="description" id="description" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm">
+            <div *ngIf="expenseForm.controls['description'].invalid && expenseForm.controls['description'].touched" class="text-red-500 text-xs mt-1">
+                La description est requise.
+            </div>
+        </div>
+
+        <div>
+            <label for="amount" class="block text-sm font-medium text-gray-700">Montant</label>
+            <input type="text" formControlName="amount" id="amount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm">
+            <div *ngIf="expenseForm.controls['amount'].invalid && expenseForm.controls['amount'].touched" class="text-red-500 text-xs mt-1">
+                Le montant est requis et doit être supérieur à zéro.
+            </div>
+        </div>
+
+        <div>
+            <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+            <input type="date" formControlName="date" id="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm">
+            <div *ngIf="expenseForm.controls['date'].invalid && expenseForm.controls['date'].touched" class="text-red-500 text-xs mt-1">
+                La date est requise.
+            </div>
+        </div>
+
+        <div>
+            <label for="category" class="block text-sm font-medium text-gray-700">Catégorie</label>
+            <select formControlName="category" id="category" [compareWith]="compareObjects" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 sm:text-sm">
+                <option [ngValue]="null" disabled>Sélectionner une catégorie</option>
+                <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+            </select>
+            <div *ngIf="expenseForm.controls['category'].invalid && expenseForm.controls['category'].touched" class="text-red-500 text-xs mt-1">
+                La catégorie est requise.
+            </div>
+        </div>
+        
+        <div class="flex justify-end space-x-4">
+            <button type="submit" [disabled]="expenseForm.invalid" class="px-4 py-2 text-white font-semibold rounded-md shadow-md focus:outline-none transition ease-in-out duration-150"
+                    [ngClass]="expenseForm.invalid ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'">
+                {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+            </button>
+            <button type="button" (click)="goHome()" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md shadow-md hover:bg-gray-300 focus:outline-none transition ease-in-out duration-150">
+                Annuler
+            </button>
+        </div>
+    </form>
+</div>
