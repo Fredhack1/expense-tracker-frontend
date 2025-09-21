@@ -1,6 +1,13 @@
-<div class="container mx-auto p-4">
-  <h1 class="text-3xl text-blue-500 font-bold mb-4 cursor-pointer">Expense Tracker</h1>
-  <!-- <app-category-list></app-category-list> -->
-  <!-- <app-expense-list></app-expense-list> -->
+<nav class="bg-gray-800 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <a routerLink="/" class="text-3xl text-blue-500 font-bold mb-4 cursor-pointer">Expense Tracker</a>
+    <div class="space-x-4">
+      <a routerLink="/expenses" routerLinkActive="text-indigo-400" [routerLinkActiveOptions]="{exact: true}" class="text-gray-300 hover:text-white transition ease-out duration-150">Dépenses</a>
+      <a routerLink="/categories" routerLinkActive="text-indigo-400" class="text-gray-300 hover:text-white transition ease-out duration-150">Catégories</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container mx-auto p-4">
   <router-outlet></router-outlet>
-</div>
+</main>
